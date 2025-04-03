@@ -14,7 +14,17 @@ if __name__ == "__main__":
     parser.add_argument('--repo_root',default=default_repo, help="Location of the root of the spack repo.")
     parser.add_argument('version',type=str,help="Version of spack to install.")
     parser.add_argument('--output',type=str,default=".",help="Directory where to save the module files.")
+    parser.add_argument('--module',default="spack",help="Which module to generate",choices=["spack","cse_env"],type=str)
+    
 
     args=parser.parse_args()
 
-    tools.modules.generate_modules(repo_path= args.repo_root,version= args.version,output=args.output)
+
+    if args.module == "spack":
+        gen=tools.modules.spack_module_generator(repo_path= args.repo_root,version= args.version)
+        gen.write_module(args.output)
+    
+    if args.module == "cse_env":
+        gen=tools.modules.cse_env_module_generator(repo_path= args.repo_root,version=args.version)
+        gen.write_module(args.output)
+    

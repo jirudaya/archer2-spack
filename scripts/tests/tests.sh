@@ -17,8 +17,8 @@ echo "gcc 10 compiler found: $(spack compilers | grep gcc@10 | wc -l)"
 echo "cce 15 compilers found: $(spack compilers | grep cce@15 | wc -l)"
 
 # Check we can build and run a few example packages
-spack install lammps
-spack install quantum-espresso
+spack -d install -vvv lammps
+spack -d install -vvv quantum-espresso
 
 # Check that we can run a package on the compute nodes
 sbatch -W submit_lammps.sh

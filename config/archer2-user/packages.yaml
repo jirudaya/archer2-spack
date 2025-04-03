@@ -3,7 +3,7 @@ packages:
   # note the compiler and providers specifications
   # only suggest a priority order, they do not exclude other options
   # suggested priority for compilers.
-    compiler: [ gcc@11.2.0, cce@15.0.0, gcc@10.3.0 ,aocc@3.2.0 ]
+    compiler: [ gcc@11.2.0, cce@15.0.0, gcc@10.3.0 ,aocc@4.0.0 ]
     providers:
       mpi: [ cray-mpich ]
       pkgconfig: [ pkg-config ]
@@ -11,6 +11,7 @@ packages:
       blas: [cray-libsci ]
       lapack : [cray-libsci ]
       scalapack : [ cray-libsci ]
+
 
     permissions:
       read: world
@@ -39,7 +40,7 @@ packages:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
         prefix: /opt/cray/pe/netcdf-hdf5parallel/4.9.0.1/gnu/9.1
-      - spec: netcdf-c@4.9.0.1+mpi%cee
+      - spec: netcdf-c@4.9.0.1+mpi%cce
         modules:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
@@ -59,7 +60,7 @@ packages:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
         prefix: /opt/cray/pe/netcdf-hdf5parallel/4.9.0.1/gnu/9.1
-      - spec: netcdf-fortran@4.9.0.1%cee
+      - spec: netcdf-fortran@4.9.0.1%cce
         modules:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
@@ -80,7 +81,7 @@ packages:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
         prefix: /opt/cray/pe/netcdf-hdf5parallel/4.9.0.1/gnu/9.1
-      - spec: netcdf-cxx4@4.9.0.1%cee
+      - spec: netcdf-cxx4@4.9.0.1%cce
         modules:
           - cray-hdf5-parallel/1.12.2.1
           - cray-netcdf-hdf5parallel 
@@ -100,7 +101,7 @@ packages:
         modules:
           - cray-parallel-netcdf/1.12.3.1
         prefix: /opt/cray/pe/parallel-netcdf/1.12.3.1/gnu/9.1
-      - spec: parallel-netcdf@1.12.3.1%cee
+      - spec: parallel-netcdf@1.12.3.1%cce
         modules:
           - cray-parallel-netcdf/1.12.3.1
           - cray-netcdf-hdf5parallel 
@@ -146,7 +147,7 @@ packages:
         modules:
           - cray-mpich/8.1.23
           - cray-hdf5-parallel/1.12.2.1 
-        prefix: /opt/cray/pe/hdf5-parallel/1.12.2.1/cray-clang/14.0
+        prefix: /opt/cray/pe/hdf5-parallel/1.12.2.1/crayclang/14.0
 
       - spec: hdf5@1.12.2.1+mpi%aocc
         modules:
@@ -198,61 +199,43 @@ packages:
       prefix: /opt/cray/pe/libsci/22.12.1.1/AOCC/2.0/x86_64
  
 
-
   python:
     externals:
      - spec: python@3.9.13.1
-       modules:
-         - cray-python
-       prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False
+
+       prefix: /opt/cray/pe/python/3.9.13.1
   
   py-numpy:
     externals:
      - spec: py-numpy@1.21.5
-       modules:
-         - cray-python
        prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False 
   
 
   py-mpi4py:
     externals:
      - spec: py-mpi4py@3.1.3
-       modules:
-         - cray-python
        prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False 
-  
+    buildable: false
+    
   py-scipy:
     externals:
      - spec: py-scipy@1.6.2
-       modules:
-         - cray-python
        prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False
+    
   
   py-cython:
     externals:
      - spec: py-cython@0.29.28
-       modules:
-         - cray-python
+
        prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False
-  py-pip:
-    externals:
-     - spec: py-pip@22.0.4
-       modules:
-         - cray-python
-       prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False
+  
   py-setuptools:
     externals:
      - spec: py-setuptools@58.1.0
-       modules:
-         - cray-python
        prefix:  /opt/cray/pe/python/3.9.13.1
-    buildable: False
   
-  
+  py-setuptools-scm:
+    externals:
+     - spec: py-setuptools-scm@6.0.1
+       prefix:  /opt/cray/pe/python/3.9.13.1
   

@@ -1,11 +1,11 @@
 help([[
-Spack __EPCC__SPACK__VERSION__
+Spack __EPCC__VERSION__
 ==============
 Spack is a package management tool for HPC.
 This module enables Spack and configures for
 software packages to be installed into the
 user's directories at
-/work/group/group/username/.spack.
+/work/group/group/username/.spack-__EPCC__VERSION__.
 
 ]])
 
@@ -23,13 +23,13 @@ setenv("SPACK_ROOT", pathJoin(pkgBase,"spack") )
 
 local user = subprocess("id -un")
 local group = subprocess("id -gn")
-setenv("SPACK_USER_CACHE_PATH", pathJoin("/work", group, group, user, ".spack-__EPCC__SPACK__VERSION__"))
+setenv("SPACK_USER_CACHE_PATH", pathJoin("/work", group, group, user, ".spack-__EPCC__VERSION__"))
 
 -- Use the same directory for the user scope configs. Individual users may wish
 -- to override this, but as a default we should make sure they stay on /work 
 -- rather than /home, otherwise Spack will probably break in jobs.
 
-setenv("SPACK_USER_CONFIG_PATH", pathJoin("/work", group, group, user, ".spack-__EPCC__SPACK__VERSION__"))
+setenv("SPACK_USER_CONFIG_PATH", pathJoin("/work", group, group, user, ".spack-__EPCC__VERSION__"))
 
 -- We want to use the ARCHER2 user specific configs which, among other things,
 -- is configured to use the CSE installation as an upstream package source. In
