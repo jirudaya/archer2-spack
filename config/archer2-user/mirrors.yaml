@@ -1,0 +1,6 @@
+mirrors:
+  cache:
+    url: $spack/../archer2-cse/cache
+    binary: true
+    source: false
+    signed: false

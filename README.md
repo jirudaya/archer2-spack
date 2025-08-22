@@ -92,3 +92,14 @@ Add a spec into the `environments/archer2-cse/spack.yaml` in the `$cse_specs` li
 spack env activate environments/archer2-cse
 spack install
 ```
+
+## Pushing to the cache
+
+This pushes specs installed into the environment to a build cache.
+If a user installs the same spec, it will copy the binary from the cache instead of installing from scratch, saving build time.
+
+```bash
+spack -e environments/archer2-cse/ buildcache push --only=packages cache
+spack -e environments/archer2-cse/ buildcache push --only=dependencies cache
+spack -e environments/archer2-cse/ buildcache update-index cache
+```
