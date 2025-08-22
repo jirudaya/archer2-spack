@@ -8,12 +8,14 @@ spack:
   - cse_specs:
     - python
     - openfoam%gcc
+    - castep%gcc
     - petsc %gcc@11.2.0
     - petsc %cce@15.0.0
     - petsc %aocc fortran=false
     - gromacs%gcc@11.2.0
     - gromacs%cce
     - lammps%gcc@11.2.0
+    - castep%gcc
 
 
   modules:
@@ -27,17 +29,16 @@ spack:
       lmod:
         projections:
           all: '{name}/{version}'
-        
         gromacs:
-          environment: 
+          environment:
             set:
-              SLURM_CPU_FREQ_REQ: "2250000"
+              SLURM_CPU_FREQ_REQ: '2250000'
         lammps:
-          environment: 
+          environment:
             set:
-              SLURM_CPU_FREQ_REQ: "2250000"
-        
-        
+              SLURM_CPU_FREQ_REQ: '2250000'
+
+
 
         exclude:
         - cray-mpich
@@ -76,5 +77,14 @@ spack:
     install_tree:
       root: $spack/../archer2-cse/opt
 
+  mirrors:
+    licensed_packages: $spack/../archer2-cse/licensed_packages
+
+  packages:
+    castep:
+      permissions:
+        write: user
+        read: group
+        group: castep
 
   view: false

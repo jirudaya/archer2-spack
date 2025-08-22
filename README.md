@@ -103,3 +103,14 @@ spack -e environments/archer2-cse/ buildcache push --only=packages cache
 spack -e environments/archer2-cse/ buildcache push --only=dependencies cache
 spack -e environments/archer2-cse/ buildcache update-index cache
 ```
+
+## Licensed packages
+
+Source code of licenced packages can be set in `archer2-cse/licensed_packages` . This directory is inonly accessible for the cse user.
+A new licensed package tarball needs to be placed in `archer2-cse/licensed_packages/<my-package-name>`. 
+The mirror then needs to be built with 
+
+```bash
+spack -e environments/archer2-cse/ mirror  create -d  archer2-cse/licensed_packages <my-package-name>
+spack -e environments/archer2-cse/ install -vvv <my-package-name>
+```
