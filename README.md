@@ -106,7 +106,7 @@ spack -e environments/archer2-cse/ buildcache update-index cache
 
 ## Licensed packages
 
-Source code of licenced packages can be set in `archer2-cse/licensed_packages` . This directory is inonly accessible for the cse user.
+Source code of licenced packages can be set in `archer2-cse/licensed_packages` . This directory is only accessible for the cse user.
 A new licensed package tarball needs to be placed in `archer2-cse/licensed_packages/<my-package-name>`. 
 The mirror then needs to be built with 
 

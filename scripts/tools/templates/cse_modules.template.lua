@@ -22,6 +22,7 @@ local softwarebase = "__EPCC__SPACK__REPO__ROOT__/archer2-cse/modules"
 local gnu_path = pathJoin(softwarebase, "gcc/11.2.0")
 local cray_path = pathJoin(softwarebase, "cce/15.0.0")
 local aocc_path = pathJoin(softwarebase, "aocc/4.0.0")
+local core_path = pathJoin(softwarebase, "Core")
 
 
 if os.getenv("PE_ENV") == "GNU" then
@@ -32,18 +33,19 @@ if os.getenv("PE_ENV") == "GNU" then
     prepend_path("MODULEPATH", aocc_path)
 end
 
+prepend_path("MODULEPATH", core_path)
+
+-- Removing the current software spack from the modules to avoid clashes and recreating some of the environment. 
+-- In the future we might want to separate these module path from other variables in epcc-setup-env in order to avoid the duplication.
+
+unload("epcc-setup-env")
+
 pushenv("LMOD_CUSTOM_COMPILER_GNU_PREFIX", gnu_path)
 pushenv("LMOD_CUSTOM_COMPILER_GNU_8_0_PREFIX", gnu_path )
 pushenv("LMOD_CUSTOM_COMPILER_CRAYCLANG_PREFIX", cray_path )
 pushenv("LMOD_CUSTOM_COMPILER_CRAYCLANG_10_0_PREFIX", cray_path)
 pushenv("LMOD_CUSTOM_COMPILER_AOCC_PREFIX", aocc_path)
 pushenv("LMOD_CUSTOM_COMPILER_AOCC_3_0_PREFIX", aocc_path)
-
-
--- Removing the current software spack from the modules to avoid clashes and recreating some of the environment. 
--- In the future we might want to separate these module path from other variables in epcc-setup-env in order to avoid the duplication.
-
-unload("epcc-setup-env")
 
 
 -- Set any env vars
