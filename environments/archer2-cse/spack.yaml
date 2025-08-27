@@ -15,8 +15,6 @@ spack:
     - gromacs%gcc@11.2.0
     - gromacs%cce
     - lammps%gcc@11.2.0
-    - castep%gcc
-
 
   modules:
     default:
@@ -71,6 +69,7 @@ spack:
   specs:
   - $cse_specs
 
+  - openfoam-org%gcc
   concretizer:
     unify: false
   config:
