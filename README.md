@@ -93,16 +93,6 @@ spack env activate environments/archer2-cse
 spack install
 ```
 
-## Pushing to the cache
-
-This pushes specs installed into the environment to a build cache.
-If a user installs the same spec, it will copy the binary from the cache instead of installing from scratch, saving build time.
-
-```bash
-spack -e environments/archer2-cse/ buildcache push --only=packages cache
-spack -e environments/archer2-cse/ buildcache push --only=dependencies cache
-spack -e environments/archer2-cse/ buildcache update-index cache
-```
 
 ## Licensed packages
 
@@ -114,3 +104,19 @@ The mirror then needs to be built with
 spack -e environments/archer2-cse/ mirror  create -d  archer2-cse/licensed_packages <my-package-name>
 spack -e environments/archer2-cse/ install -vvv <my-package-name>
 ```
+
+## Build cache
+
+Spack defaults to installing all packages from source. As this requires re-compiling, this can take a long time and/or require a large amount of memory.
+This can be sped up by setting a re-usable build cache of commonly used packages.
+An environment containg specs we want to cache is contained in the `archer2-cse-cache` environment.
+In order to add packages to the cache run
+
+```bash
+spack -e environments/archer2-cse-cache/ install # install specs defined in the environment
+spack -e environments/archer2-cse-cache/ buildcache push --only=package cache # Save defined specs in the build cache
+spack -e environments/archer2-cse-cache/ buildcache push --only=dependencies cache # Save dependencies in the build cache
+spack -e environments/archer2-cse-cache/ buildcache update-index cache # Update the cache index, so that the cached build can be found when an archer2 user installs the same package in their own environment
+```
+
+

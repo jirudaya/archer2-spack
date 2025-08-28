@@ -1,0 +1,48 @@
+  modules:
+    default:
+      'enable:':
+      - lmod
+
+      use_view: false
+      roots:
+        lmod: $spack/../archer2-cse/modules
+      lmod:
+        projections:
+          all: '{name}/{version}'
+        gromacs:
+          environment:
+            set:
+              SLURM_CPU_FREQ_REQ: '2250000'
+        lammps:
+          environment:
+            set:
+              SLURM_CPU_FREQ_REQ: '2250000'
+
+
+
+        exclude:
+        - cray-mpich
+        - cray-libsci
+        - libfabric
+        - fftw
+        - hdf5
+        - cray-fftw
+        - parallel-netcdf
+        - netcdf-cxx4
+        - netcdf-fortran
+
+        hash_length: 0
+        core_compilers: [gcc@7.5.0]
+
+        hide_implicits: true
+        all:
+          autoload: direct
+        core_specs: [python]
+        'hierarchy:':
+        - compiler
+      arch_folder: false
+    prefix_inspections:
+      ./lib:
+      - LD_LIBRARY_PATH
+      ./lib64:
+      - LD_LIBRARY_PATH
