@@ -86,11 +86,11 @@ module load PrgEnv-gnu
 
 ## Add packages
 
-Add a spec into the `environments/archer2-cse/spack.yaml` in the `$cse_specs` list. Then activate and re-install the environment
+- Add a spec into the `environments/archer2-cse/spack.yaml` in the `specs` list.
+- Install the new specs
 
 ```bash
-spack env activate environments/archer2-cse
-spack install
+spack -e  environments/archer2-cse install
 ```
 
 
@@ -104,6 +104,9 @@ The mirror then needs to be built with
 spack -e environments/archer2-cse/ mirror  create -d  archer2-cse/licensed_packages <my-package-name>
 spack -e environments/archer2-cse/ install -vvv <my-package-name>
 ```
+
+Once the package has been added to the mirror, it needs to be added to the environment, as described in the section above.
+However, make sure to set the permissions in the `packages` section of the `spack.yaml` environment.
 
 ## Build cache
 
