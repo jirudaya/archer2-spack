@@ -1,4 +1,4 @@
 [submodule "spack"]
 	path = spack
 	url = https://github.com/spack/spack.git
-	branch = releases/v0.23
+	branch = v1.0.2
