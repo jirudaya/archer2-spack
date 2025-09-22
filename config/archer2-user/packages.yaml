@@ -3,7 +3,6 @@ packages:
   # note the compiler and providers specifications
   # only suggest a priority order, they do not exclude other options
   # suggested priority for compilers.
-    compiler: [ gcc@11.2.0, cce@15.0.0, gcc@10.3.0 ,aocc@4.0.0 ]
     providers:
       mpi: [ cray-mpich ]
       pkgconfig: [ pkg-config ]
@@ -32,7 +31,62 @@ packages:
     buildable: False
   netcdf95:
     buildable: False
-
+  
+  gcc:
+    externals:
+      - spec: gcc@=11.2.0
+        extra_attributes:
+          compilers:
+            c: cc
+            cxx: CC
+            fc: ftn
+        modules:
+          - PrgEnv-gnu
+          - gcc/11.2.0
+          - xpmem
+          - libfabric
+          - craype-x86-rome
+          - craype-network-ofi
+      - spec: gcc@=7.5.0
+        extra_attributes:
+          compilers:
+            c: /usr/bin/gcc
+            cxx: /usr/bin/g++
+            fc: /usr/bin/gfortran
+  
+  cce:
+    externals:
+      - spec: cce@=15.0.0
+        extra_attributes:
+          compilers:
+            c: cc
+            cxx: CC
+            fc: ftn
+        modules:
+          - PrgEnv-cray
+          - cce/15.0.0
+          - xpmem
+          - libfabric
+          - craype-x86-rome
+          - craype-network-ofi
+  aocc:
+    externals:
+      - spec: aocc@=4.0.0
+        extra_attributes:
+          compilers:
+            c: cc
+            cxx: CC
+            fc: ftn
+        modules:
+          - PrgEnv-aocc
+          - aocc/4.0.0
+          - xpmem
+          - libfabric
+          - craype-x86-rome
+          - craype-network-ofi
+        
+      
+        
   netcdf-c:
     externals:
       - spec: netcdf-c@4.9.0.1+mpi%gcc
