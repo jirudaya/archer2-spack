@@ -39,7 +39,7 @@ packages:
           compilers:
             c: cc
             cxx: CC
-            fc: ftn
+            fortran: ftn
         modules:
           - PrgEnv-gnu
           - gcc/11.2.0
@@ -52,7 +52,7 @@ packages:
           compilers:
             c: /usr/bin/gcc
             cxx: /usr/bin/g++
-            fc: /usr/bin/gfortran
+            fortran: /usr/bin/gfortran
   
   cce:
     externals:
@@ -61,7 +61,7 @@ packages:
           compilers:
             c: cc
             cxx: CC
-            fc: ftn
+            fortran: ftn
         modules:
           - PrgEnv-cray
           - cce/15.0.0
@@ -76,7 +76,7 @@ packages:
           compilers:
             c: cc
             cxx: CC
-            fc: ftn
+            fortran: ftn
         modules:
           - PrgEnv-aocc
           - aocc/4.0.0
@@ -169,18 +169,18 @@ packages:
 
   cray-mpich:
     externals:
-    - spec: cray-mpich@8.1.23%gcc
+    - spec: cray-mpich@8.1.23%gcc +wrappers
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
       prefix: /opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1  
     
-    - spec: cray-mpich@8.1.23%aocc
+    - spec: cray-mpich@8.1.23%aocc +wrappers
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
       prefix: /opt/cray/pe/mpich/8.1.23/ofi/aocc/3.0
-    - spec: cray-mpich@8.1.23%cce
+    - spec: cray-mpich@8.1.23%cce +wrappers
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
@@ -242,7 +242,7 @@ packages:
     - spec: cray-libsci@22.12.1.1%gcc
       modules:
       - cray-libsci/22.12.1.1
-      prefix: /opt/cray/pe/libsci/22.12.1.1/gnu/9.1/x86_64
+      prefix: /opt/cray/pe/libsci/22.12.1.1/GNU/9.1/x86_64
     - spec: cray-libsci@21.08.1.2%cce
       modules:
       - cray-libsci/22.12.1.1
