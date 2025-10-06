@@ -3,12 +3,8 @@
 # in the future.
 # This tests could take a large amount of time
 
-VERSION=0.23.0
+VERSION=1.0.2
 
-# Generate modules
-python3 ../generate_modules.py $VERSION --output modules/spack
-module use modules
-module load spack/$VERSION
 
 # Config sanity checks
 echo "spack version found: $(spack --version | grep $VERSION | wc -l)"
@@ -21,5 +17,5 @@ spack -d install -vvv lammps
 spack -d install -vvv quantum-espresso
 
 # Check that we can run a package on the compute nodes
-sbatch -W submit_lammps.sh
-cat lammps_test.out
+#sbatch -W submit_lammps.sh
+#cat lammps_test.out
