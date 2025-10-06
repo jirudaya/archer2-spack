@@ -14,7 +14,7 @@ spack:
     - castep%gcc
     - petsc %gcc@11.2.0
     - petsc %cce@15.0.0
-    - petsc %aocc fortran=false
+    - petsc fortran=false %aocc
     - gromacs%gcc@11.2.0
     - gromacs%cce
     - lammps%gcc@11.2.0
