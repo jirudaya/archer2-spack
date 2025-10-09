@@ -24,14 +24,6 @@ local cray_path = pathJoin(softwarebase, "cce/15.0.0")
 local aocc_path = pathJoin(softwarebase, "aocc/4.0.0")
 local core_path = pathJoin(softwarebase, "Core")
 
-if os.getenv("PE_ENV") == "GNU" then
-    prepend_path("MODULEPATH", gnu_path)
-  elseif os.getenv("PE_ENV") == "CRAY" then
-    prepend_path("MODULEPATH", cray_path)
-  elseif os.getenv("PE_ENV") == "AOCC" then
-    prepend_path("MODULEPATH", aocc_path)
-end
-
 prepend_path("MODULEPATH", core_path)
 
 -- Removing the current software spack from the modules to avoid clashes and recreating some of the environment. 

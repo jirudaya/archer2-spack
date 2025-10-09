@@ -27,8 +27,6 @@ spack:
       root: $spack/../archer2-cse/opt
       padding_length: 120
 
-  mirrors:
-    licensed_packages: $spack/../archer2-cse/licensed_packages
 
   packages:
     castep:

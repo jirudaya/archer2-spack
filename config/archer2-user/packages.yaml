@@ -169,18 +169,18 @@ packages:
 
   cray-mpich:
     externals:
-    - spec: cray-mpich@8.1.23%gcc +wrappers
+    - spec: cray-mpich@8.1.23 +wrappers %gcc 
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
       prefix: /opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1  
     
-    - spec: cray-mpich@8.1.23%aocc +wrappers
+    - spec: cray-mpich@8.1.23 +wrappers   %aocc
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi
       prefix: /opt/cray/pe/mpich/8.1.23/ofi/aocc/3.0
-    - spec: cray-mpich@8.1.23%cce +wrappers
+    - spec: cray-mpich@8.1.23 +wrappers %cce
       modules:
       - cray-mpich/8.1.23
       - craype-network-ofi

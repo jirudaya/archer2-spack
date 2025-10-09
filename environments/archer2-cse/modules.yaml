@@ -9,6 +9,10 @@
       lmod:
         projections:
           all: '{name}/{version}'
+          cce: '{name}-spack/{version}'
+          aocc: '{name}-spack/{version}'
+          gcc: '{name}-spack/{version}'
+          
         gromacs:
           environment:
             set:

@@ -10,7 +10,7 @@ The archer2 repo folder contains patches for broken or non-existent packages on 
 ### Loading spack
 
 ```bash
-module load spack/0.23.0
+module load spack/1.0.2
 ```
 
 ### Useful commands
@@ -29,18 +29,21 @@ A few examples can be found in the `custom_packages` subdirectory.
 Navigate to the folder where you wish to install spack and clone this folder, including submodules.
 
 ```bash
-git clone --recursive -b v0.23.0 https://github.com/EPCCed/spack-epcc-20241106.git
+git clone --recursive -b v1.0.2 https://github.com/EPCCed/spack-epcc-20241106.git
 ```
 
 You can generate module files to load spack using
 
 ```bash
-python scripts/generate_modules.py $VERSION --output $MY_MODULES_ROOT/spack
+module load cray-python
+python scripts/generate_modules.py $SPACK_VERSION --output $MODULES_ROOT/spack
 ```
 
-Finally you can test the spack installation by executing the `tests.sh` script.
+Finally you can run a smoke test of the spack installation by executing the `tests.sh` script.
 
 ```bash
+module use $MODULES_ROOT
+module load spack/$SPACK_VERSION
 cd scripts/tests
 bash tests.sh
 ```
@@ -48,28 +51,23 @@ bash tests.sh
 ## Installing the CSE environment
 
 This is an environment we can use to provide centrlly installed packages.
-You can activate the environment with
+You can install the environment wih
 
 ```bash
-spack env activate environments/archer2-cse
+spack -d -e environments/archer2-cse install -vvvv
 ```
-
-You will then need to install packages with
-
-```bash
-spack install
-```
+If installing from fresh, this might take a long time.
 
 Finally generate environment modules with
 
 ```bash
 spack module lmod refresh --delete-tree -y
 ```
-
+Note, this should always be done by the cse user.
 To unlock the modules created, you can generate a module that activates the environment modules.
 
 ```bash
-python scripts/generate_modules.py $VERSION_ENV --module=cse_env --output $MY_MODULES_ROOT/cse_env
+python scripts/generate_modules.py $VERSION_ENV --module=cse_env --output $MODULES_ROOT/cse_env
 ```
 
 To use the spack generated modules load the `cse_env` module
@@ -96,17 +94,17 @@ spack -e  environments/archer2-cse install
 
 ## Licensed packages
 
-Source code of licenced packages can be set in `archer2-cse/licensed_packages` . This directory is only accessible for the cse user.
-A new licensed package tarball needs to be placed in `archer2-cse/licensed_packages/<my-package-name>`. 
-The mirror then needs to be built with 
+Source code of licenced packages can be set in a mirror in `archer2-cse/licensed_packages` . This directory should only accessible for the cse user.
+
 
 ```bash
-spack -e environments/archer2-cse/ mirror  create -d  archer2-cse/licensed_packages <my-package-name>
-spack -e environments/archer2-cse/ install -vvv <my-package-name>
+spack -e environments/archer2-cse/ mirror  create -d  archer2/licensed_packages <my-package-name>
+spack -e ../../environments/archer2-cse/ install -vvv <my-package-name>
 ```
 
+The first time you install a package, the source code needs to be present locally.
 Once the package has been added to the mirror, it needs to be added to the environment, as described in the section above.
-However, make sure to set the permissions in the `packages` section of the `spack.yaml` environment.
+However, make sure to set the permissions in the `packages` section of the `spack.yaml` environment are set appropriatly.
 
 ## Build cache
 
@@ -121,5 +119,3 @@ spack -e environments/archer2-cse-cache/ buildcache push --only=package cache # 
 spack -e environments/archer2-cse-cache/ buildcache push --only=dependencies cache # Save dependencies in the build cache
 spack -e environments/archer2-cse-cache/ buildcache update-index cache # Update the cache index, so that the cached build can be found when an archer2 user installs the same package in their own environment
 ```
-
-
