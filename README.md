@@ -84,25 +84,24 @@ module load PrgEnv-gnu
 
 ## Add packages
 
-- Add a spec into the `environments/archer2-cse/spack.yaml` in the `specs` list.
-- Install the new specs
+Add a spec into the `environments/archer2-cse/spack.yaml` in the `specs` list.
+Then install the new specs and re-generate the modules
 
 ```bash
 spack -e  environments/archer2-cse install
+spack module lmod refresh --delete-tree -y
 ```
-
 
 ## Licensed packages
 
 Source code of licenced packages can be set in a mirror in `archer2-cse/licensed_packages` . This directory should only accessible for the cse user.
 
-
 ```bash
-spack -e environments/archer2-cse/ mirror  create -d  archer2/licensed_packages <my-package-name>
-spack -e ../../environments/archer2-cse/ install -vvv <my-package-name>
+spack -e environments/archer2-cse/ mirror  create -d  ../../archer2-cse/licensed_packages <my-package-name>
+spack -e environments/archer2-cse/ install -vvv <my-package-name>
 ```
 
-The first time you install a package, the source code needs to be present locally.
+The first time you install a package, the source code needs to be present in your current folder. For subsequent installations, the source will be fetched from the mirror.
 Once the package has been added to the mirror, it needs to be added to the environment, as described in the section above.
 However, make sure to set the permissions in the `packages` section of the `spack.yaml` environment are set appropriatly.
 
