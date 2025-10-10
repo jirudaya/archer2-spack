@@ -39,15 +39,6 @@ module load cray-python
 python scripts/generate_modules.py $SPACK_VERSION --output $MODULES_ROOT/spack
 ```
 
-Finally you can run a smoke test of the spack installation by executing the `tests.sh` script.
-
-```bash
-module use $MODULES_ROOT
-module load spack/$SPACK_VERSION
-cd scripts/tests
-bash tests.sh
-```
-
 ## Installing the CSE environment
 
 This is an environment we can use to provide centrlly installed packages.
@@ -76,11 +67,11 @@ To use the spack generated modules load the `cse_env` module
 module load cse_env
 ```
 
-You will be able to see all the packages compatible with your current programming environment. To view packages supported only for a certain compiler, load the corresponding cray programming environment. I.e. to see `openfoam`, which is only available within the gnu programming environment, use
+You will be able to see all the packages compatible with your current programming environment. To view packages supported only for a certain compiler, load the corresponding cray programming environment or use the `module spider <package_name>` command. 
 
-```bash
-module load PrgEnv-gnu
-```
+## Testing 
+
+The CSE environment, exposed using modules, can be tested with reframe ( see https://github.com/ARCHER2-HPC/archer2-spack/pull/38 for additional information ).
 
 ## Add packages
 
