@@ -71,7 +71,7 @@ You will be able to see all the packages compatible with your current programmin
 
 ## Testing 
 
-The CSE environment, exposed using modules, can be tested with reframe ( see https://github.com/ARCHER2-HPC/archer2-spack/pull/38 for additional information ).
+The CSE environment, exposed using modules, can be tested with reframe ( see https://github.com/EPCCed/epcc-reframe/pull/75 for additional information ).
 
 ## Add packages
 
