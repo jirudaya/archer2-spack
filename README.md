@@ -10,7 +10,7 @@ The archer2 repo folder contains patches for broken or non-existent packages on 
 ### Loading spack
 
 ```bash
-module load spack/0.23.0
+module load spack/1.0.2
 ```
 
 ### Useful commands
@@ -29,47 +29,36 @@ A few examples can be found in the `custom_packages` subdirectory.
 Navigate to the folder where you wish to install spack and clone this folder, including submodules.
 
 ```bash
-git clone --recursive -b v0.23.0 https://github.com/EPCCed/spack-epcc-20241106.git
+git clone --recursive -b v1.0.2 https://github.com/EPCCed/spack-epcc-20241106.git
 ```
 
 You can generate module files to load spack using
 
 ```bash
-python scripts/generate_modules.py $VERSION --output $MY_MODULES_ROOT/spack
-```
-
-Finally you can test the spack installation by executing the `tests.sh` script.
-
-```bash
-cd scripts/tests
-bash tests.sh
+module load cray-python
+python scripts/generate_modules.py $SPACK_VERSION --output $MODULES_ROOT/spack
 ```
 
 ## Installing the CSE environment
 
 This is an environment we can use to provide centrlly installed packages.
-You can activate the environment with
+You can install the environment wih
 
 ```bash
-spack env activate environments/archer2-cse
+spack -d -e environments/archer2-cse install -vvvv
 ```
-
-You will then need to install packages with
-
-```bash
-spack install
-```
+If installing from fresh, this might take a long time.
 
 Finally generate environment modules with
 
 ```bash
 spack module lmod refresh --delete-tree -y
 ```
-
+Note, this should always be done by the cse user.
 To unlock the modules created, you can generate a module that activates the environment modules.
 
 ```bash
-python scripts/generate_modules.py $VERSION_ENV --module=cse_env --output $MY_MODULES_ROOT/cse_env
+python scripts/generate_modules.py $VERSION_ENV --module=cse_env --output $MODULES_ROOT/cse_env
 ```
 
 To use the spack generated modules load the `cse_env` module
@@ -78,17 +67,45 @@ To use the spack generated modules load the `cse_env` module
 module load cse_env
 ```
 
-You will be able to see all the packages compatible with your current programming environment. To view packages supported only for a certain compiler, load the corresponding cray programming environment. I.e. to see `openfoam`, which is only available within the gnu programming environment, use
+You will be able to see all the packages compatible with your current programming environment. To view packages supported only for a certain compiler, load the corresponding cray programming environment or use the `module spider <package_name>` command. 
 
-```bash
-module load PrgEnv-gnu
-```
+## Testing 
+
+The CSE environment, exposed using modules, can be tested with reframe ( see https://github.com/EPCCed/epcc-reframe/pull/75 for additional information ).
 
 ## Add packages
 
-Add a spec into the `environments/archer2-cse/spack.yaml` in the `$cse_specs` list. Then activate and re-install the environment
+Add a spec into the `environments/archer2-cse/spack.yaml` in the `specs` list.
+Then install the new specs and re-generate the modules
 
 ```bash
-spack env activate environments/archer2-cse
-spack install
+spack -e  environments/archer2-cse install
+spack module lmod refresh --delete-tree -y
+```
+
+## Licensed packages
+
+Source code of licenced packages can be set in a mirror in `archer2-cse/licensed_packages` . This directory should only accessible for the cse user.
+
+```bash
+spack -e environments/archer2-cse/ mirror  create -d  ../../archer2-cse/licensed_packages <my-package-name>
+spack -e environments/archer2-cse/ install -vvv <my-package-name>
+```
+
+The first time you install a package, the source code needs to be present in your current folder. For subsequent installations, the source will be fetched from the mirror.
+Once the package has been added to the mirror, it needs to be added to the environment, as described in the section above.
+However, make sure to set the permissions in the `packages` section of the `spack.yaml` environment are set appropriatly.
+
+## Build cache
+
+Spack defaults to installing all packages from source. As this requires re-compiling, this can take a long time and/or require a large amount of memory.
+This can be sped up by setting a re-usable build cache of commonly used packages.
+An environment containg specs we want to cache is contained in the `archer2-cse-cache` environment.
+In order to add packages to the cache run
+
+```bash
+spack -e environments/archer2-cse-cache/ install # install specs defined in the environment
+spack -e environments/archer2-cse-cache/ buildcache push --only=package cache # Save defined specs in the build cache
+spack -e environments/archer2-cse-cache/ buildcache push --only=dependencies cache # Save dependencies in the build cache
+spack -e environments/archer2-cse-cache/ buildcache update-index cache # Update the cache index, so that the cached build can be found when an archer2 user installs the same package in their own environment
 ```

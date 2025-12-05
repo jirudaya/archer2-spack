@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 import os
 
+from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
 
 
@@ -30,6 +31,12 @@ class Castep(CMakePackage):
     depends_on("blas")
     depends_on("lapack")
     depends_on("libxc")
+
+    depends_on("c", type="build")  
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+    depends_on("gmake", type="build")
+    
 
     patch("24.1.patch", when="@24.1")
     patch("libxc_mod.patch", when="@24.1")
