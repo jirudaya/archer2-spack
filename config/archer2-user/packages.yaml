@@ -41,6 +41,7 @@ packages:
             cxx: CC
             fortran: ftn
         modules:
+          - cpe/23.09
           - PrgEnv-gnu
           - gcc/11.2.0
           - xpmem
@@ -63,6 +64,7 @@ packages:
             cxx: CC
             fortran: ftn
         modules:
+          - cpe/23.09
           - PrgEnv-cray
           - cce/16.0.1
           - xpmem
@@ -78,6 +80,7 @@ packages:
             cxx: CC
             fortran: ftn
         modules:
+          - cpe/23.09
           - PrgEnv-aocc
           - aocc/4.0.0
           - xpmem
